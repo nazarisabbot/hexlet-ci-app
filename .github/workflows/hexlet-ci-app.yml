@@ -1,0 +1,27 @@
+name: hexlet-ci-app
+
+on: push
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      # Клонируем репозиторий
+      - uses: actions/checkout@v4
+      # Устанавливаем Node.js
+      - uses: actions/setup-node@v4
+      # Ставим зависимости
+      - run: make setup
+      # Запускаем линтер
+      - run: make start
+      # Запускаем тесты
+      # у шагов может быть имя, иногда это помогает отладке
+      # имя выводится на Github при просмотре сборки
+      - name: start test
+        run: make test # name и run относятся к одной задаче, поэтому дефис ставится только перед name
+      
+      - name: start eslint
+        run: make lint
